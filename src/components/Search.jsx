@@ -38,7 +38,7 @@ function Search(onSelectAddress) {
 			axios
 				.get(retreiveEndpoint)
 				.then((response) => {
-					console.log(response.properties);
+					console.log(response.data.features[0].properties);
 				})
 				.catch((error) => {
 					console.error(error);
@@ -47,21 +47,30 @@ function Search(onSelectAddress) {
 	};
 
 	return (
-		<div>
-			<button onClick={handleSearch}>Search</button>
-			<input
-				type="text"
-				placeholder="Type an address"
-				value={address}
-				onChange={(e) => setAddress(e.target.value)}
-			/>
-			<ul>
+		<div className="container">
+			<div className="search-bar">
+				<button className="search-button" onClick={handleSearch}>
+					Search
+				</button>
+				<input
+					className="search-input"
+					type="text"
+					placeholder="Seach address"
+					value={address}
+					onChange={(e) => setAddress(e.target.value)}
+				/>
+			</div>
+			<ul className="suggestions-list">
 				{suggestions.map((suggestion) => (
 					<li
+						className="suggestion-item"
 						key={suggestion.mapbox_id}
 						onClick={() => handleSelectSuggestion(suggestion)}
 					>
-						{suggestion.name || "No Name Available"}{" "}
+						{suggestion.name || "No Name Available"}
+						<br />
+						{suggestion.full_address}
+						<span></span>
 					</li>
 				))}
 			</ul>
