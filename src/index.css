@@ -83,7 +83,3 @@ h1 {
 	border-radius: 8px;
 	cursor: pointer;
 }
-
-.custom-marker {
-	transform: translate(0 0) important!;
-}

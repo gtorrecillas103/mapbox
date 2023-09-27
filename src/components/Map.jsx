@@ -1,21 +1,22 @@
-import { useEffect } from "react";
+import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { useLocation } from "react-router-dom";
 
 const Map = () => {
 	const location = useLocation();
 	const selectedAddress = location.state.selectedAddress;
+	const mapContainer = useRef(null);
+	const map = useRef(null);
+	const marker = useRef(null);
 
 	useEffect(() => {
 		mapboxgl.accessToken =
 			"pk.eyJ1IjoiZ3RvcnJlY2lsbGFzMTAzIiwiYSI6ImNsbXg5bWwzczBqdjcycmxjcDNxYXRtOHUifQ.lQ60nbkIs-QipRbvlgD46Q";
 
-		let map;
-		let marker;
-		const initializeMap = () => {
-			map = new mapboxgl.Map({
-				container: "map",
-				style: "mapbox://styles/mapbox/streets-v12",
+		if (!map.current) {
+			map.current = new mapboxgl.Map({
+				container: mapContainer.current,
+				style: "mapbox://styles/mapbox/streets-v11",
 				center: [
 					selectedAddress.coordinates.longitude,
 					selectedAddress.coordinates.latitude,
@@ -23,20 +24,20 @@ const Map = () => {
 				zoom: 15,
 			});
 
-			marker = new mapboxgl.Marker()
+			marker.current = new mapboxgl.Marker()
 				.setLngLat([
 					selectedAddress.coordinates.longitude,
 					selectedAddress.coordinates.latitude,
 				])
-				.addTo(map);
+				.addTo(map.current);
 
-			map.on("load", () => {
-				map.addSource("custom-tileset", {
+			map.current.on("load", () => {
+				map.current.addSource("custom-tileset", {
 					type: "vector",
 					url: "mapbox://gtorrecillas103.cln0qusx123pm2cque4t72n9o-0ifvy",
 				});
 
-				map.addLayer({
+				map.current.addLayer({
 					id: "custom-tileset-layer",
 					type: "fill",
 					source: "custom-tileset",
@@ -47,22 +48,12 @@ const Map = () => {
 					},
 				});
 			});
-		};
-
-		if (!map) {
-			initializeMap();
 		}
-
-		return () => {
-			if (map) {
-				map.remove();
-			}
-		};
 	}, [selectedAddress]);
 
 	return (
 		<div>
-			<div id="map" style={{ width: "100%", height: "500px" }}></div>
+			<div ref={mapContainer} style={{ width: "100%", height: "500px" }}></div>
 		</div>
 	);
 };
