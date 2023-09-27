@@ -1,12 +1,15 @@
 import axios from "axios";
 import { useEffect } from "react";
 import { useState } from "react";
-function Search(onSelectAddress) {
+import { useNavigate } from "react-router-dom";
+function Search() {
 	const [address, setAddress] = useState("");
 	const [suggestions, setSuggestions] = useState([]);
 	const [selectedSuggestion, setSelectedSuggestion] = useState(null);
 	const apiKey =
 		"pk.eyJ1IjoiZ3RvcnJlY2lsbGFzMTAzIiwiYSI6ImNsbXg5bWwzczBqdjcycmxjcDNxYXRtOHUifQ.lQ60nbkIs-QipRbvlgD46Q";
+	const navigate = useNavigate();
+
 	useEffect(() => {
 		if (address.trim() === "") {
 			setSuggestions([]);
@@ -38,7 +41,12 @@ function Search(onSelectAddress) {
 			axios
 				.get(retreiveEndpoint)
 				.then((response) => {
-					console.log(response.data.features[0].properties);
+					const selectedAddress = response.data.features[0].properties;
+					console.log(
+						selectedAddress.coordinates.longitude,
+						selectedAddress.coordinates.latitude
+					);
+					navigate("/map", { state: { selectedAddress } });
 				})
 				.catch((error) => {
 					console.error(error);
