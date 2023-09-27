@@ -14,8 +14,8 @@ const Map = () => {
 		let marker;
 		const initializeMap = () => {
 			map = new mapboxgl.Map({
-				container: "map-container",
-				style: "mapbox://styles/mapbox/streets-v11",
+				container: "map",
+				style: "mapbox://styles/mapbox/streets-v12",
 				center: [
 					selectedAddress.coordinates.longitude,
 					selectedAddress.coordinates.latitude,
@@ -53,11 +53,6 @@ const Map = () => {
 			initializeMap();
 		}
 
-		map.setCenter([
-			selectedAddress.coordinates.longitude,
-			selectedAddress.coordinates.latitude,
-		]);
-
 		return () => {
 			if (map) {
 				map.remove();
@@ -67,7 +62,7 @@ const Map = () => {
 
 	return (
 		<div>
-			<div id="map-container" style={{ width: "100%", height: "500px" }}></div>
+			<div id="map" style={{ width: "100%", height: "500px" }}></div>
 		</div>
 	);
 };

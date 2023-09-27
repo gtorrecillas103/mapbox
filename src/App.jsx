@@ -6,7 +6,7 @@ import Map from "./components/Map";
 function App() {
 	return (
 		<Router>
-			<h1>Mapbox Exercisae</h1>
+			<h1>Mapbox Exercise</h1>
 			<Routes>
 				<Route path="/" element={<Search />} />
 				<Route path="/map" element={<Map />} />
