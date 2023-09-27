@@ -36,14 +36,14 @@ const Map = () => {
 			map.current.on("load", () => {
 				map.current.addSource("custom-tileset", {
 					type: "vector",
-					url: "mapbox://gtorrecillas103.cln0qusx123pm2cque4t72n9o-8rt67",
+					url: "mapbox://gtorrecillas103.cln0qusx123pm2cque4t72n9o-3t6x1",
 				});
 
 				map.current.addLayer({
 					id: "custom-tileset-layer",
 					type: "fill",
 					source: "custom-tileset",
-					"source-layer": "test2",
+					"source-layer": "test",
 					paint: {
 						"fill-color": "purple",
 						"fill-opacity": 0.5,
