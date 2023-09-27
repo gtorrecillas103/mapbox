@@ -23,7 +23,7 @@ const Map = () => {
 				zoom: 15,
 			});
 
-			marker = new mapboxgl.Marker({})
+			marker = new mapboxgl.Marker()
 				.setLngLat([
 					selectedAddress.coordinates.longitude,
 					selectedAddress.coordinates.latitude,
@@ -42,7 +42,7 @@ const Map = () => {
 					source: "custom-tileset",
 					"source-layer": "test",
 					paint: {
-						"fill-color": "rgba(255, 0, 0, 0.5)",
+						"fill-color": "black",
 						"fill-opacity": 0.5,
 					},
 				});
