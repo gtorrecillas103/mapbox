@@ -1,6 +1,7 @@
 import { useEffect, useRef } from "react";
 import mapboxgl from "mapbox-gl";
 import { useLocation } from "react-router-dom";
+import { useNavigate } from "react-router-dom";
 
 const Map = () => {
 	const location = useLocation();
@@ -8,6 +9,7 @@ const Map = () => {
 	const mapContainer = useRef(null);
 	const map = useRef(null);
 	const marker = useRef(null);
+	const navigate = useNavigate();
 
 	useEffect(() => {
 		mapboxgl.accessToken =
@@ -34,16 +36,16 @@ const Map = () => {
 			map.current.on("load", () => {
 				map.current.addSource("custom-tileset", {
 					type: "vector",
-					url: "mapbox://gtorrecillas103.cln0qusx123pm2cque4t72n9o-0ifvy",
+					url: "mapbox://gtorrecillas103.cln0qusx123pm2cque4t72n9o-8rt67",
 				});
 
 				map.current.addLayer({
 					id: "custom-tileset-layer",
 					type: "fill",
 					source: "custom-tileset",
-					"source-layer": "test",
+					"source-layer": "test2",
 					paint: {
-						"fill-color": "black",
+						"fill-color": "purple",
 						"fill-opacity": 0.5,
 					},
 				});
@@ -53,6 +55,9 @@ const Map = () => {
 
 	return (
 		<div>
+			<button className="back-button" onClick={() => navigate("/")}>
+				Go Back
+			</button>
 			<div ref={mapContainer} style={{ width: "100%", height: "500px" }}></div>
 		</div>
 	);
